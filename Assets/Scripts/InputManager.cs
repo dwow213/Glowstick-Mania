@@ -23,13 +23,13 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         eventCore = GameObject.Find("EventCore").GetComponent<EventCore>();
+        doingMovement = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         GetInput();
-        doingMovement = false;
     }
 
     //getting input from player
@@ -87,9 +87,10 @@ public class InputManager : MonoBehaviour
             }
             doingMovement = true;
         }
-        else
+        else if (joycon1Hit.collider == null && joycon2Hit.collider != null)
         {
             doingMovement = false;
+            print("setting doingMovement to false");
         }
 
         /*

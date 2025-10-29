@@ -31,13 +31,15 @@ public class Conductor : MonoBehaviour
     [SerializeField] float playerRow; //the row the player is in
     bool alreadyMoved;
 
+    bool onPlayerNote;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         eventCore = GameObject.Find("EventCore").GetComponent<EventCore>();
         eventCore.provideInput.AddListener(ProcessInput);
 
-        music = GetComponent<AudioSource>();
+        //music = GetComponent<AudioSource>();
         secPerBeat = 60f / bpm; //get the amount of seconds per beat based on bpm
         dspSongTime = (float)AudioSettings.dspTime; //get the amount of time since song started
 
@@ -48,6 +50,7 @@ public class Conductor : MonoBehaviour
 
         noteInMilliseconds = secPerBeat; //start from the first note
         alreadyMoved = true;
+        onPlayerNote = false;
     }
 
     // Update is called once per frame
@@ -69,23 +72,57 @@ public class Conductor : MonoBehaviour
         currentBeat = (totalBeats % 4) + 1;
         
         ms = (noteInMilliseconds - songPosition) * 1000;
-        print("ms: " + (ms));
+        //print("ms: " + (ms));
 
-        //if the current note has been up for a certain amount of ms, update for the next note
-        if (ms < -700)
+        if (ms < -700 && onPlayerNote)
         {
             noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat) * secPerBeat;
             noteDisplays[(int)playerRow - 1].image.color = Color.white;
+
+            //print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
+
+            if (chart[0][3] == playerRow && !alreadyMoved)
+            {
+                noteDisplays[(int)playerRow - 1].image.color = Color.red;
+                player.PointChange(-0.5f);
+            }
+
+            onPlayerNote = false;
             alreadyMoved = false;
         }
-        
+
+        /*
+        //if the current note has been up for a certain amount of ms, update for the next note
+        if ((ms < -secPerBeat && chart[0][3] != playerRow) || ms < -700)
+        //if (ms < -700)
+        {
+            noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat) * secPerBeat;
+            noteDisplays[(int)playerRow - 1].image.color = Color.white;
+
+            //print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
+
+            if (chart[0][3] == playerRow && !alreadyMoved)
+            {
+                noteDisplays[(int)playerRow - 1].image.color = Color.red;
+                player.PointChange(-0.5f);
+            }
+
+            alreadyMoved = false;
+        } */
+
         //check if the note should be displayed
         while (chart[0][0] == currentMeasure && chart[0][1] == currentBeat)
         {
             print(chart[0][0] + ", " + chart[0][1] + ", " + chart[0][2]);
 
+            //change the note as long as it's the player's row
             if (chart[0][3] != playerRow)    
                 noteDisplays[(int)chart[0][3] - 1].setNote(chart[0][2]);
+            else
+            {
+                print("on player note");
+                onPlayerNote = true;
+            }
 
             chart.Remove(chart[0]);
         }
@@ -106,21 +143,29 @@ public class Conductor : MonoBehaviour
 
         alreadyMoved = true;
 
+        //stop player from doing input if they're too far
+        if (chart[0][3] != playerRow || !onPlayerNote)
+        {
+            return;
+        }
+
         //if player did the wrong movement
         if (input != chartHolder.GetMoveName(specificNote))
         {
             print("wrong movement dummy\nms:" + (ms));
             print("should be " + chartHolder.GetMoveName(chart[0][2]) + ", but you pressed " + input);
+            noteDisplays[(int)playerRow - 1].image.color = Color.red;
+            player.PointChange(-1f * Time.deltaTime);
+            alreadyMoved = false;
             return;
         }
-        //print("note in milliseconds: " + noteInMilliseconds);
-        print("ms: " + (ms));
 
         //okay judgement
         if (ms > 184 || ms < -184)
         {
             print("judgement: okay \nms:" + (ms));
             noteDisplays[(int)playerRow - 1].image.color = Color.orange;
+            player.PointChange(0.3f);
             return;
         }
 
@@ -129,6 +174,7 @@ public class Conductor : MonoBehaviour
         {
             print("judgement: good \nms:" + (ms));
             noteDisplays[(int)playerRow - 1].image.color = Color.green;
+            player.PointChange(0.6f);
             return;
         }
 
@@ -137,6 +183,7 @@ public class Conductor : MonoBehaviour
         {
             print("judgement: perfect \nms:" + (ms));
             noteDisplays[(int)playerRow - 1].image.color = Color.blue;
+            player.PointChange(1f);
             return;
         }
     }

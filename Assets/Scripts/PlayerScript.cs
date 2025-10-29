@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
         cameraOriginal.z = Mathf.Lerp(cameraOriginal.z, newCameraTransform, 2.0f * Time.deltaTime);
 
         cameraTransform.position = cameraOriginal;
-        
+
 
         // lose condition
         if (points <= -5)
@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     // point update for camera movement
-    void PointChange(float pointChange)
+    public void PointChange(float pointChange)
     {
         points += pointChange;
         if (points > -5 && points <= 5)
