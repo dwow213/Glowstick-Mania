@@ -10,7 +10,9 @@ public class Conductor : MonoBehaviour
     public ChartHolder chartHolder;
     public AudioSource music; //the music
     public AudioSource metronome;
-    public NoteDisplay[] noteDisplays;
+    public NoteDisplay[] noteDisplays; //temp 2d, for testing only
+    //public NoteDisplay[] noteDisplays;
+    public PlayerScript player;
     EventCore eventCore;
 
     [Header("Conductor")]
