@@ -2860,6 +2860,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1933159319741795146, guid: bdac8b1635230404c8534e4200681311, type: 3}
   m_PrefabInstance: {fileID: 660659421}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &660659423 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6413803738353125599, guid: bdac8b1635230404c8534e4200681311, type: 3}
+  m_PrefabInstance: {fileID: 660659421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &660659424 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1841326034090918722, guid: bdac8b1635230404c8534e4200681311, type: 3}
+  m_PrefabInstance: {fileID: 660659421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!114 &706549474 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8707613386274895365, guid: 64fb8a97e8e80a94ba3b42ac6239ab62, type: 3}
@@ -7296,8 +7318,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
   points: 0
   cameraTransform: {fileID: 2032239407}
-  pointsBar: {fileID: 0}
-  pointsFillBar: {fileID: 0}
+  pointsBar: {fileID: 660659424}
+  pointsFillBar: {fileID: 660659423}
 --- !u!1 &2143985217
 GameObject:
   m_ObjectHideFlags: 0
