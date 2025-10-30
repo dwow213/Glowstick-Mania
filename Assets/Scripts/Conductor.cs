@@ -121,7 +121,7 @@ public class Conductor : MonoBehaviour
             if (!alreadyMoved)
             {
                 noteDisplays2d[(int)playerRow - 1].image.color = Color.red;
-                player.PointChange(-0.5f);
+                player.PointChange(-1f);
             }
 
             onPlayerNote = false;
@@ -167,14 +167,14 @@ public class Conductor : MonoBehaviour
     //check player's input and see if it is on beat and correctly pressed
     void ProcessInput(string input)
     {
+        //change player's arrow to the movement they did
+        noteDisplays2d[(int)playerRow - 1].setNote(chartHolder.GetMoveId(input));
+
         if (alreadyMoved)
         {
             print("already moved:" + songPosition);
             return;
         }
-        
-        //change player's arrow to the movement they did
-        noteDisplays2d[(int)playerRow - 1].setNote(chartHolder.GetMoveId(input));
 
         //stop player from doing input if they're too far
         if (!onPlayerNote)
@@ -195,7 +195,7 @@ public class Conductor : MonoBehaviour
             print("wrong movement dummy\nms:" + (ms));
             print("should be " + chartHolder.GetMoveName(chart[0][2]) + ", but you pressed " + input);
             noteDisplays2d[(int)playerRow - 1].image.color = Color.red; //might be temp
-            player.PointChange(-2f * Time.deltaTime);
+            player.PointChange(-1f * Time.deltaTime);
             alreadyMoved = false;
             eventCore.wrongMovement.Invoke();
             return;
