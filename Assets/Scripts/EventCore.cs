@@ -8,6 +8,9 @@ public class EventCore : MonoBehaviour
     //event for when player does the wrong movement
     public UnityEvent wrongMovement;
 
+    //event for sending out the judgement, for the visual stuff
+    public UnityEvent<int> processJudgement;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
