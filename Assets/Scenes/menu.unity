@@ -2267,6 +2267,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 94495612810583651, guid: 2e50e0e57ccd69542a0f061d7f583410, type: 3}
   m_PrefabInstance: {fileID: 1903504887}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1903504890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2440015253656372500, guid: 2e50e0e57ccd69542a0f061d7f583410, type: 3}
+  m_PrefabInstance: {fileID: 1903504887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1903504891 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4389854949706221309, guid: 2e50e0e57ccd69542a0f061d7f583410, type: 3}
+  m_PrefabInstance: {fileID: 1903504887}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903504890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 405bad29b2b998c408059182c189d9e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1952125601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2409,6 +2425,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11bcd7f64f0672745ba652bc40ce79c8, type: 3}
+--- !u!1001 &2087671182
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5468139797133001422, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_Name
+      value: EventCore
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526472630980654724, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 566.9593
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526472630980654724, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526472630980654724, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 205.77563
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526472630980654724, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526472630980654724, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526472630980654724, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526472630980654724, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526472630980654724, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526472630980654724, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526472630980654724, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7c311734e16e5d44cb6529012bd0a981, type: 3}
 --- !u!1001 &2135804422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2479,6 +2552,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 671009848}
     m_Modifications:
     - target: {fileID: 2328319976257593793, guid: dfc32fe3d999cb14a84d53b793362487, type: 3}
+      propertyPath: joyconManager
+      value: 
+      objectReference: {fileID: 1903504891}
+    - target: {fileID: 2328319976257593793, guid: dfc32fe3d999cb14a84d53b793362487, type: 3}
       propertyPath: joyconObject1
       value: 
       objectReference: {fileID: 1903504889}
@@ -2486,6 +2563,10 @@ PrefabInstance:
       propertyPath: joyconObject2
       value: 
       objectReference: {fileID: 1903504888}
+    - target: {fileID: 2328319976257593793, guid: dfc32fe3d999cb14a84d53b793362487, type: 3}
+      propertyPath: joyconManagerObject
+      value: 
+      objectReference: {fileID: 1903504890}
     - target: {fileID: 4995608426226255996, guid: dfc32fe3d999cb14a84d53b793362487, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2603,3 +2684,4 @@ SceneRoots:
   - {fileID: 1903504887}
   - {fileID: 947455788}
   - {fileID: 734662861}
+  - {fileID: 2087671182}
