@@ -26,11 +26,17 @@ public class PlayerScript : MonoBehaviour
     public float judgementTextAlpha = 0f;
     public float judgementAlphaDrain = 0.25f;
 
+    [Header("Judgement SFX")]
+    public AudioSource source;
+    public AudioClip[] judgementSfx; 
+
     EventCore eventCore;
 
     void Start()
     {
         newCameraTransform = cameraTransform.position.z;
+
+        source = GetComponent<AudioSource>();
 
         eventCore = GameObject.Find("EventCore").GetComponent<EventCore>();
         eventCore.processJudgement.AddListener(ShowJudgementOverlay);
@@ -104,12 +110,15 @@ public class PlayerScript : MonoBehaviour
 
             judgementText.text = "miss...";
             judgementText.color = Color.red;
+
+            source.PlayOneShot(judgementSfx[0]);
         }
-            points += pointChange;
+        
+        points += pointChange;
+
         if (points > -5 && points <= 5)
         {
             newCameraTransform = -10f + points;
-            
         }
         
         //Debug.Log(newCameraTransform);
@@ -122,6 +131,8 @@ public class PlayerScript : MonoBehaviour
         judgementTextAlpha = 1;
 
         pointMinusOverlayAlpha = 0;
+
+        source.PlayOneShot(judgementSfx[judgement]);
 
         if (judgement == 1)
         {
