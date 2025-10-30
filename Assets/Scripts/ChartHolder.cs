@@ -187,8 +187,6 @@ public class ChartHolder : MonoBehaviour
     {
         List<List<float>> chart = new List<List<float>>
         {
-            new List<float> {2, 4, GetMoveId("up"), 1},
-
             new List<float> {3, 1, GetMoveId("up"), 1},
             new List<float> {3, 2, GetMoveId("up"), 2},
             new List<float> {3, 3, GetMoveId("up"), 3},

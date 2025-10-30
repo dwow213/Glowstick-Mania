@@ -21,7 +21,7 @@ public class JoyconDemo : MonoBehaviour {
 	public Quaternion orientation;
 
 	Transform model;
-	private List<Joycon> joycons;
+	[SerializeField] private List<Joycon> joycons;
 
 	[ContextMenu("Recenter")]
 	void Recenter() {

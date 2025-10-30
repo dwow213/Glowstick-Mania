@@ -27,12 +27,25 @@ public class NoteDisplay : MonoBehaviour
     public void setNote(float note)
     {
         if (note == 1)
+        {
+            //if ()
             image.texture = up;
+        }
+            
         else if (note == 2)
+        {
             image.texture = down;
+        }
+            
         else if (note == 3)
+        {
             image.texture = left;
+        }
+            
         else if (note == 4)
+        {
             image.texture = right;
+        }
+            
     }
 }
