@@ -990,6 +990,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3450259232768932197, guid: 2e50e0e57ccd69542a0f061d7f583410, type: 3}
+      propertyPath: joycon1
+      value: 
+      objectReference: {fileID: 445477164}
+    - target: {fileID: 3450259232768932197, guid: 2e50e0e57ccd69542a0f061d7f583410, type: 3}
+      propertyPath: joycon2
+      value: 
+      objectReference: {fileID: 445477164}
     - target: {fileID: 3896479173958053402, guid: 2e50e0e57ccd69542a0f061d7f583410, type: 3}
       propertyPath: m_Name
       value: MotionControls
@@ -1548,6 +1556,10 @@ PrefabInstance:
       propertyPath: Loop
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2661971154198961241, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 38d14d261921b054195a36117cf655c9, type: 3}
     - target: {fileID: 6186366839584977134, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1590,12 +1602,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
       propertyPath: bpm
-      value: 60
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 2032239409}
+    - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
+      propertyPath: beatOffset
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
       propertyPath: secPerBeat
       value: 0
@@ -1757,6 +1773,11 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &445477164 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5586050305328138215, guid: 2e50e0e57ccd69542a0f061d7f583410, type: 3}
+  m_PrefabInstance: {fileID: 240128250}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &446083446
 GameObject:
   m_ObjectHideFlags: 0
@@ -4446,6 +4467,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventCore
   provideInput:
+    m_PersistentCalls:
+      m_Calls: []
+  wrongMovement:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1279584244

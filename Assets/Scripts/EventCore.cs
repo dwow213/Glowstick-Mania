@@ -5,7 +5,9 @@ public class EventCore : MonoBehaviour
 {
     //event for player input 
     public UnityEvent<string> provideInput;
-    
+    //event for when player does the wrong movement
+    public UnityEvent wrongMovement;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

@@ -23,6 +23,7 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         eventCore = GameObject.Find("EventCore").GetComponent<EventCore>();
+        eventCore.wrongMovement.AddListener(movementIsWrong);
         doingMovement = false;
     }
 
@@ -87,10 +88,10 @@ public class InputManager : MonoBehaviour
             }
             doingMovement = true;
         }
-        else if (joycon1Hit.collider == null && joycon2Hit.collider != null)
+        else if (collision1 == null && collision2 == null)
         {
             doingMovement = false;
-            print("setting doingMovement to false");
+            //print("setting doingMovement to false");
         }
 
         /*
@@ -110,5 +111,12 @@ public class InputManager : MonoBehaviour
         {
             eventCore.provideInput.Invoke("right");
         } */
+    }
+
+    //just allows the player to do another movement if they did the wrong one
+    void movementIsWrong()
+    {
+        //print("receiving event for movement is wrong");
+        doingMovement = false;
     }
 }

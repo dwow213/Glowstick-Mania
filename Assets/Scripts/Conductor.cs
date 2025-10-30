@@ -1,6 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class Conductor : MonoBehaviour
 {
@@ -23,6 +25,7 @@ public class Conductor : MonoBehaviour
     [SerializeField] float secPerBeat; //how many seconds each beat takes
     [SerializeField] float songPosition; //current song position in seconds
     [SerializeField] int totalBeats; //the total amount of beats in a song
+    [SerializeField] int beatOffset; //offset the beat since the song may start later
     [SerializeField] int currentMeasure; //current measure of the song
     [SerializeField] float currentBeat; //current beat of the song
     [SerializeField] float dspSongTime; //how many seconds passed since the song started
@@ -32,6 +35,8 @@ public class Conductor : MonoBehaviour
     bool alreadyMoved;
 
     bool onPlayerNote;
+    float startTimer;
+    bool startSong;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,21 +46,36 @@ public class Conductor : MonoBehaviour
 
         //music = GetComponent<AudioSource>();
         secPerBeat = 60f / bpm; //get the amount of seconds per beat based on bpm
-        dspSongTime = (float)AudioSettings.dspTime; //get the amount of time since song started
 
-        chart = chartHolder.getChart("test2"); //get the test chart
-        music.Play(); //play the music
+        chart = chartHolder.getChart("RubySunset"); //get the test chart
+        //music.Play(); //play the music
 
         playerRow = 4; //start at the very back
 
         noteInMilliseconds = secPerBeat; //start from the first note
         alreadyMoved = true;
         onPlayerNote = false;
+        startTimer = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!startSong)
+        {
+            startTimer += Time.deltaTime;
+
+            if (startTimer > 3)
+            {
+                startSong = true;
+                //AudioSettings.Reset();
+                dspSongTime = (float)AudioSettings.dspTime; //get the amount of time since song started
+                music.Play();
+            }
+
+            return;
+        }
+
         //determine the song position by checking how many seconds have passed since the song started
         songPosition = (float)(AudioSettings.dspTime - dspSongTime);
         //print("song position: " + songPosition);
@@ -65,7 +85,11 @@ public class Conductor : MonoBehaviour
 
         //metronome that plays every beat
         if ((totalBeats % 4) + 1 != currentBeat)
+        {
             metronome.Play();
+            print(chart.Count);
+            print(chart[0][0] + ", " + chart[0][1] + ", " + chart[0][2]);
+        }
 
         //get the current measure and beat of the song
         currentMeasure = (int)totalBeats / 4 + 1;
@@ -74,6 +98,18 @@ public class Conductor : MonoBehaviour
         ms = (noteInMilliseconds - songPosition) * 1000;
         //print("ms: " + (ms));
 
+        //if the current note has been up for a certain amount of ms, update for the next note
+        if ((ms < -secPerBeat && !onPlayerNote))
+        //if (ms < -700)
+        {
+            noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat) * secPerBeat;
+            noteDisplays[(int)playerRow - 1].image.color = Color.white;
+
+            //print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
+
+            alreadyMoved = false;
+        }
+
         if (ms < -700 && onPlayerNote)
         {
             noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat) * secPerBeat;
@@ -81,7 +117,7 @@ public class Conductor : MonoBehaviour
 
             //print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
 
-            if (chart[0][3] == playerRow && !alreadyMoved)
+            if (!alreadyMoved)
             {
                 noteDisplays[(int)playerRow - 1].image.color = Color.red;
                 player.PointChange(-0.5f);
@@ -91,41 +127,36 @@ public class Conductor : MonoBehaviour
             alreadyMoved = false;
         }
 
-        /*
-        //if the current note has been up for a certain amount of ms, update for the next note
-        if ((ms < -secPerBeat && chart[0][3] != playerRow) || ms < -700)
-        //if (ms < -700)
+
+        //if there is still more notes in the chart
+        if (chart.Count > 0)
         {
-            noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat) * secPerBeat;
-            noteDisplays[(int)playerRow - 1].image.color = Color.white;
-
-            //print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
-
-            if (chart[0][3] == playerRow && !alreadyMoved)
+            //check if the note should be displayed
+            while (chart[0][0] == currentMeasure && chart[0][1] == currentBeat)
             {
-                noteDisplays[(int)playerRow - 1].image.color = Color.red;
-                player.PointChange(-0.5f);
+                print(chart[0][0] + ", " + chart[0][1] + ", " + chart[0][2]);
+
+                //change the note as long as it's the player's row
+                if (chart[0][3] != playerRow)
+                    noteDisplays[(int)chart[0][3] - 1].setNote(chart[0][2]);
+                
+                if (chart[0][3] == playerRow - 1)
+                {
+                    print("on player note");
+                    onPlayerNote = true;
+                    noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat + 1) * secPerBeat;
+                    print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
+                }
+
+                chart.Remove(chart[0]);
             }
-
-            alreadyMoved = false;
-        } */
-
-        //check if the note should be displayed
-        while (chart[0][0] == currentMeasure && chart[0][1] == currentBeat)
-        {
-            print(chart[0][0] + ", " + chart[0][1] + ", " + chart[0][2]);
-
-            //change the note as long as it's the player's row
-            if (chart[0][3] != playerRow)    
-                noteDisplays[(int)chart[0][3] - 1].setNote(chart[0][2]);
-            else
-            {
-                print("on player note");
-                onPlayerNote = true;
-            }
-
-            chart.Remove(chart[0]);
         }
+        //if 2 seconds have passed since the music ended
+        else if (songPosition > music.clip.length + 2)
+        {
+            SceneManager.LoadScene(2);
+        }
+
     }
 
     //check player's input and see if it is on beat and correctly pressed
@@ -133,21 +164,24 @@ public class Conductor : MonoBehaviour
     {
         if (alreadyMoved)
         {
+            print("already moved:" + songPosition);
             return;
         }
         
         //change player's arrow to the movement they did
         noteDisplays[(int)playerRow - 1].setNote(chartHolder.GetMoveId(input));
 
+        //stop player from doing input if they're too far
+        if (!onPlayerNote)
+        {
+            print("not time for player input: " + songPosition);
+            //player.PointChange(-0.1f);
+            return;
+        }
+
         float specificNote = GetSpecificNote();
 
         alreadyMoved = true;
-
-        //stop player from doing input if they're too far
-        if (chart[0][3] != playerRow || !onPlayerNote)
-        {
-            return;
-        }
 
         //if player did the wrong movement
         if (input != chartHolder.GetMoveName(specificNote))
@@ -155,8 +189,9 @@ public class Conductor : MonoBehaviour
             print("wrong movement dummy\nms:" + (ms));
             print("should be " + chartHolder.GetMoveName(chart[0][2]) + ", but you pressed " + input);
             noteDisplays[(int)playerRow - 1].image.color = Color.red;
-            player.PointChange(-1f * Time.deltaTime);
+            player.PointChange(-2f * Time.deltaTime);
             alreadyMoved = false;
+            eventCore.wrongMovement.Invoke();
             return;
         }
 
@@ -182,7 +217,7 @@ public class Conductor : MonoBehaviour
         if (ms > 32 || ms < -32)
         {
             print("judgement: perfect \nms:" + (ms));
-            noteDisplays[(int)playerRow - 1].image.color = Color.blue;
+            noteDisplays[(int)playerRow - 1].image.color = Color.lightBlue;
             player.PointChange(1f);
             return;
         }
