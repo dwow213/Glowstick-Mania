@@ -12,8 +12,8 @@ public class Conductor : MonoBehaviour
     public ChartHolder chartHolder;
     public AudioSource music; //the music
     public AudioSource metronome;
-    public NoteDisplay[] noteDisplays; //temp 2d, for testing only
-    //public NoteDisplay[] noteDisplays;
+    public NoteDisplay[] noteDisplays2d; //temp 2d, for testing only
+    public NoteDisplay[] noteDisplays3d; //the crowds and coordinator
     public PlayerScript player;
     EventCore eventCore;
 
@@ -103,7 +103,7 @@ public class Conductor : MonoBehaviour
         //if (ms < -700)
         {
             noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat) * secPerBeat;
-            noteDisplays[(int)playerRow - 1].image.color = Color.white;
+            noteDisplays2d[(int)playerRow - 1].image.color = Color.white;
 
             //print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
 
@@ -114,13 +114,13 @@ public class Conductor : MonoBehaviour
         if (ms < -700 && onPlayerNote)
         {
             noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat) * secPerBeat;
-            noteDisplays[(int)playerRow - 1].image.color = Color.white;
+            noteDisplays2d[(int)playerRow - 1].image.color = Color.white;
 
             //print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
 
             if (!alreadyMoved)
             {
-                noteDisplays[(int)playerRow - 1].image.color = Color.red;
+                noteDisplays2d[(int)playerRow - 1].image.color = Color.red;
                 player.PointChange(-0.5f);
             }
 
@@ -137,9 +137,12 @@ public class Conductor : MonoBehaviour
             {
                 print(chart[0][0] + ", " + chart[0][1] + ", " + chart[0][2]);
 
-                //change the note as long as it's the player's row
+                //change the crowd's pose
+                noteDisplays3d[(int)chart[0][3] - 1].setNote(chart[0][2]);
+
+                //change the note as long as it's the player's row (2d only)
                 if (chart[0][3] != playerRow)
-                    noteDisplays[(int)chart[0][3] - 1].setNote(chart[0][2]);
+                    noteDisplays2d[(int)chart[0][3] - 1].setNote(chart[0][2]);
                 
                 if (chart[0][3] == playerRow - 1)
                 {
@@ -171,7 +174,7 @@ public class Conductor : MonoBehaviour
         }
         
         //change player's arrow to the movement they did
-        noteDisplays[(int)playerRow - 1].setNote(chartHolder.GetMoveId(input));
+        noteDisplays2d[(int)playerRow - 1].setNote(chartHolder.GetMoveId(input));
 
         //stop player from doing input if they're too far
         if (!onPlayerNote)
@@ -191,7 +194,7 @@ public class Conductor : MonoBehaviour
         {
             print("wrong movement dummy\nms:" + (ms));
             print("should be " + chartHolder.GetMoveName(chart[0][2]) + ", but you pressed " + input);
-            noteDisplays[(int)playerRow - 1].image.color = Color.red;
+            noteDisplays2d[(int)playerRow - 1].image.color = Color.red; //might be temp
             player.PointChange(-2f * Time.deltaTime);
             alreadyMoved = false;
             eventCore.wrongMovement.Invoke();
@@ -202,8 +205,9 @@ public class Conductor : MonoBehaviour
         if (ms > 184 || ms < -184)
         {
             print("judgement: okay \nms:" + (ms));
-            noteDisplays[(int)playerRow - 1].image.color = Color.orange;
+            noteDisplays2d[(int)playerRow - 1].image.color = Color.orange;
             player.PointChange(0.3f);
+            eventCore.processJudgement.Invoke(1);
             return;
         }
 
@@ -211,8 +215,9 @@ public class Conductor : MonoBehaviour
         if (ms > 66 || ms < -66)
         {
             print("judgement: good \nms:" + (ms));
-            noteDisplays[(int)playerRow - 1].image.color = Color.green;
+            noteDisplays2d[(int)playerRow - 1].image.color = Color.green;
             player.PointChange(0.6f);
+            eventCore.processJudgement.Invoke(2);
             return;
         }
 
@@ -220,8 +225,9 @@ public class Conductor : MonoBehaviour
         if (ms > 32 || ms < -32)
         {
             print("judgement: perfect \nms:" + (ms));
-            noteDisplays[(int)playerRow - 1].image.color = Color.lightBlue;
+            noteDisplays2d[(int)playerRow - 1].image.color = Color.lightBlue;
             player.PointChange(1f);
+            eventCore.processJudgement.Invoke(3);
             return;
         }
     }

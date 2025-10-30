@@ -700,6 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78650ff09712b274e80e145b6952020d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoteDisplay
+  poses: []
   up: {fileID: 2800000, guid: c8edc5f480566064a89f6f91c15674d0, type: 3}
   down: {fileID: 2800000, guid: b5f71edb164f65b428f211f89a844a48, type: 3}
   left: {fileID: 2800000, guid: 8c0961fd9aea6eb43bbd2963e81809b9, type: 3}
@@ -1682,6 +1683,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 706549474}
     - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
+      propertyPath: noteDisplays2d.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
+      propertyPath: noteDisplays3d.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
       propertyPath: 'noteDisplays.Array.data[0]'
       value: 
       objectReference: {fileID: 170475169}
@@ -1697,6 +1706,26 @@ PrefabInstance:
       propertyPath: 'noteDisplays.Array.data[3]'
       value: 
       objectReference: {fileID: 1279348977}
+    - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
+      propertyPath: 'noteDisplays2d.Array.data[0]'
+      value: 
+      objectReference: {fileID: 170475169}
+    - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
+      propertyPath: 'noteDisplays2d.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1069162520}
+    - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
+      propertyPath: 'noteDisplays2d.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1061258382}
+    - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
+      propertyPath: 'noteDisplays2d.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1279348977}
+    - target: {fileID: 6544024427895677881, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
+      propertyPath: 'noteDisplays3d.Array.data[0]'
+      value: 
+      objectReference: {fileID: 911927366}
     - target: {fileID: 7674773175402876360, guid: bedf9cf06e9e0e947b827911bd5ed525, type: 3}
       propertyPath: m_Volume
       value: 0
@@ -3184,6 +3213,7 @@ GameObject:
   - component: {fileID: 911927364}
   - component: {fileID: 911927363}
   - component: {fileID: 911927362}
+  - component: {fileID: 911927366}
   m_Layer: 0
   m_Name: CoordinatorRow1
   m_TagString: Untagged
@@ -3238,7 +3268,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d4d654f9d587e5241bc7947fb4b762aa, type: 2}
+  - {fileID: 2100000, guid: 2b4258b1d9a62f3419210e5be9321602, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3284,6 +3314,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 377818083}
   m_LocalEulerAnglesHint: {x: 90, y: -90, z: 90}
+--- !u!114 &911927366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911927361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78650ff09712b274e80e145b6952020d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoteDisplay
+  poses:
+  - {fileID: 2100000, guid: 1e30cb47483d29e41ab4aaaeb3ba281f, type: 2}
+  - {fileID: 2100000, guid: 46f6004b97649c447b567eed72749a05, type: 2}
+  - {fileID: 2100000, guid: 4bbf15368eff4214b911b07fb5ca4cb6, type: 2}
+  - {fileID: 2100000, guid: 41ba2f6619ceae249a94f9387b640b67, type: 2}
+  up: {fileID: 0}
+  down: {fileID: 0}
+  left: {fileID: 0}
+  right: {fileID: 0}
+  image: {fileID: 0}
 --- !u!1 &927686638
 GameObject:
   m_ObjectHideFlags: 0
@@ -3425,6 +3477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939d117483c80ab4ab590b261ce3c9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  redLights: []
 --- !u!4 &943747026
 Transform:
   m_ObjectHideFlags: 0
@@ -3750,6 +3803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78650ff09712b274e80e145b6952020d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoteDisplay
+  poses: []
   up: {fileID: 2800000, guid: c8edc5f480566064a89f6f91c15674d0, type: 3}
   down: {fileID: 2800000, guid: b5f71edb164f65b428f211f89a844a48, type: 3}
   left: {fileID: 2800000, guid: 8c0961fd9aea6eb43bbd2963e81809b9, type: 3}
@@ -3840,6 +3894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78650ff09712b274e80e145b6952020d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoteDisplay
+  poses: []
   up: {fileID: 2800000, guid: c8edc5f480566064a89f6f91c15674d0, type: 3}
   down: {fileID: 2800000, guid: b5f71edb164f65b428f211f89a844a48, type: 3}
   left: {fileID: 2800000, guid: 8c0961fd9aea6eb43bbd2963e81809b9, type: 3}
@@ -4428,6 +4483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78650ff09712b274e80e145b6952020d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoteDisplay
+  poses: []
   up: {fileID: 2800000, guid: c8edc5f480566064a89f6f91c15674d0, type: 3}
   down: {fileID: 2800000, guid: b5f71edb164f65b428f211f89a844a48, type: 3}
   left: {fileID: 2800000, guid: 8c0961fd9aea6eb43bbd2963e81809b9, type: 3}
@@ -4501,6 +4557,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   wrongMovement:
+    m_PersistentCalls:
+      m_Calls: []
+  processJudgement:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1279584244
@@ -7161,6 +7220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78650ff09712b274e80e145b6952020d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoteDisplay
+  poses: []
   up: {fileID: 0}
   down: {fileID: 0}
   left: {fileID: 0}
