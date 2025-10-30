@@ -10,13 +10,16 @@ EditorBuildSettings:
     guid: ac552f1ffc13ea64f9a06d416aba213b
   - enabled: 1
     path: Assets/Scenes/gameplay.unity
-    guid: aa94a8d89ceae6849b895cedbcb5cbea
+    guid: aaa69bf3757f34447a95d4a74d4a2e4f
   - enabled: 1
     path: Assets/Scenes/winScreen.unity
     guid: 61afbf203e8bbc54b881716642c1ed8d
   - enabled: 1
     path: Assets/Scenes/loseScreen.unity
     guid: 19141e0ff59afa54993f11649494f533
+  - enabled: 0
+    path: Assets/Scenes/old gameplay.unity
+    guid: aa94a8d89ceae6849b895cedbcb5cbea
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

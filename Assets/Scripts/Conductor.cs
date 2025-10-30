@@ -22,11 +22,10 @@ public class Conductor : MonoBehaviour
     public List<List<float>> chart = new List<List<float>>(); //list that holds the notes with its measures, beat and type
 
     [Header("Conductor Stats")]
-    [SerializeField] float secPerBeat; //how many seconds each beat takes
+    public float secPerBeat; //how many seconds each beat takes
     [SerializeField] float songPosition; //current song position in seconds
-    [SerializeField] int totalBeats; //the total amount of beats in a song
-    [SerializeField] int beatOffset; //offset the beat since the song may start later
-    [SerializeField] int currentMeasure; //current measure of the song
+    public int totalBeats; //the total amount of beats in a song
+    public int currentMeasure; //current measure of the song
     [SerializeField] float currentBeat; //current beat of the song
     [SerializeField] float dspSongTime; //how many seconds passed since the song started
     [SerializeField] float noteInMilliseconds; //convert the current note's position in time to milliseconds
@@ -35,6 +34,7 @@ public class Conductor : MonoBehaviour
     bool alreadyMoved;
 
     bool onPlayerNote;
+    float targetMovement;
     float startTimer;
     bool startSong;
 
@@ -98,7 +98,7 @@ public class Conductor : MonoBehaviour
         ms = (noteInMilliseconds - songPosition) * 1000;
         //print("ms: " + (ms));
 
-        //if the current note has been up for a certain amount of ms, update for the next note
+        //normal note
         if ((ms < -secPerBeat && !onPlayerNote))
         //if (ms < -700)
         {
@@ -110,6 +110,7 @@ public class Conductor : MonoBehaviour
             alreadyMoved = false;
         }
 
+        //note for player
         if (ms < -700 && onPlayerNote)
         {
             noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat) * secPerBeat;
@@ -144,7 +145,8 @@ public class Conductor : MonoBehaviour
                 {
                     print("on player note");
                     onPlayerNote = true;
-                    noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat + 1) * secPerBeat;
+                    noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat) * secPerBeat;
+                    targetMovement = chart[1][2]; //save the player's note
                     print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
                 }
 
@@ -179,7 +181,8 @@ public class Conductor : MonoBehaviour
             return;
         }
 
-        float specificNote = GetSpecificNote();
+        //float specificNote = GetSpecificNote();
+        float specificNote = targetMovement;
 
         alreadyMoved = true;
 

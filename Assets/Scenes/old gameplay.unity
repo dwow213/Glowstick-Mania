@@ -5997,7 +5997,6 @@ GameObject:
   - component: {fileID: 1790900232}
   - component: {fileID: 1790900231}
   - component: {fileID: 1790900230}
-  - component: {fileID: 1790900234}
   m_Layer: 0
   m_Name: Idol
   m_TagString: Untagged
@@ -6052,7 +6051,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 106973b5c7f87ad498ea485a46863eb8, type: 2}
+  - {fileID: 2100000, guid: 992710597dab7f84cb144cbe06692846, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6098,25 +6097,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 377818083}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -180}
---- !u!114 &1790900234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1790900229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cbefd24061305e4dbd36f416bbf85e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Idol
-  poses:
-  - {fileID: 2100000, guid: 106973b5c7f87ad498ea485a46863eb8, type: 2}
-  - {fileID: 2100000, guid: d947eeabf85c99344b55a4946df971f6, type: 2}
-  - {fileID: 2100000, guid: 0f0534cd826c45442b6edbcd9c261f1d, type: 2}
-  initialSquash: 0.48
-  maxSquash: 0.6
-  squashSteps: 10
 --- !u!1 &1808617859
 GameObject:
   m_ObjectHideFlags: 0

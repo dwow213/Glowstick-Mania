@@ -6110,13 +6110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cbefd24061305e4dbd36f416bbf85e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idol
-  poses:
-  - {fileID: 2100000, guid: 106973b5c7f87ad498ea485a46863eb8, type: 2}
-  - {fileID: 2100000, guid: d947eeabf85c99344b55a4946df971f6, type: 2}
-  - {fileID: 2100000, guid: 0f0534cd826c45442b6edbcd9c261f1d, type: 2}
-  initialSquash: 0.48
-  maxSquash: 0.6
-  squashSteps: 10
+  initialSquash: 0
+  maxSquash: 0
+  squashSteps: 0
 --- !u!1 &1808617859
 GameObject:
   m_ObjectHideFlags: 0
