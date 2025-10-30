@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
     public Transform cameraTransform;
     float newCameraTransform = 0f;
     public Slider pointsBar;
+    public Image pointsFillBar;
 
     void Start()
     {
@@ -21,9 +22,28 @@ public class PlayerScript : MonoBehaviour
         points = Mathf.Clamp(points, -6, 5);
         pointsBar.value = points;
 
+        if (points >= 2)
+        {
+            pointsFillBar.color = Color.greenYellow;
 
-        // camera movement
-        Vector3 cameraOriginal = cameraTransform.position;
+            if (points > 3.5)
+            pointsFillBar.color = Color.green;
+        }
+        else if (points <= -1.5)
+        {
+            pointsFillBar.color = Color.orange;
+
+            if (points < -3)
+            pointsFillBar.color = Color.red;
+        }
+        else
+        {
+            pointsFillBar.color = Color.yellow;
+        }
+
+
+            // camera movement
+            Vector3 cameraOriginal = cameraTransform.position;
 
         cameraOriginal.z = Mathf.Lerp(cameraOriginal.z, newCameraTransform, 2.0f * Time.deltaTime);
 
