@@ -8,7 +8,8 @@ public class PlayerScript : MonoBehaviour
     [Header("Player")]
     public float points = 0;
     public Transform cameraTransform;
-    float newCameraTransform = 0f;
+    float newCameraTransformRow = 0f;
+    float newCameraTransformOffset = 0f;
 
     [Header("Points Bar")]
     public Slider pointsBar;
@@ -31,15 +32,19 @@ public class PlayerScript : MonoBehaviour
     public AudioClip[] judgementSfx; 
 
     EventCore eventCore;
+    Conductor conductor;
 
     void Start()
     {
-        newCameraTransform = cameraTransform.position.z;
+        newCameraTransformOffset = 0;
+        newCameraTransformRow = -10;
 
         source = GetComponent<AudioSource>();
 
         eventCore = GameObject.Find("EventCore").GetComponent<EventCore>();
         eventCore.processJudgement.AddListener(ShowJudgementOverlay);
+
+        conductor = GameObject.Find("Conductor").GetComponent<Conductor>();
     }
 
     void Update()
@@ -81,15 +86,31 @@ public class PlayerScript : MonoBehaviour
         pointMinusOverlayAlpha = Mathf.Clamp(pointMinusOverlayAlpha - OverlayAlphaDrain * Time.deltaTime, 0, 255);
         judgementTextAlpha = Mathf.Clamp(judgementTextAlpha - judgementAlphaDrain * Time.deltaTime, 0, 255);
 
-
-
         // camera movement
+        /*
         Vector3 cameraOriginal = cameraTransform.position;
 
         cameraOriginal.z = Mathf.Lerp(cameraOriginal.z, newCameraTransform, 2.0f * Time.deltaTime);
 
-        cameraTransform.position = cameraOriginal;
+        cameraTransform.position = cameraOriginal; */
 
+        Vector3 cameraOriginal = cameraTransform.position;
+
+        if (conductor.playerRow == 2)
+        {
+            newCameraTransformRow = -2f;
+        }
+        else if (conductor.playerRow == 3)
+        {
+            newCameraTransformRow = -6f;
+        }
+        else
+        {
+            newCameraTransformRow = -10f;
+        }
+
+        cameraOriginal.z = Mathf.Lerp(cameraOriginal.z, newCameraTransformRow += newCameraTransformOffset, 2.0f * Time.deltaTime);
+        cameraTransform.position = cameraOriginal;
 
         // lose condition
         if (points <= -5)
@@ -118,7 +139,7 @@ public class PlayerScript : MonoBehaviour
 
         if (points > -5 && points <= 5)
         {
-            newCameraTransform = -10f + points;
+            newCameraTransformOffset = points / 5;
         }
         
         //Debug.Log(newCameraTransform);

@@ -49,8 +49,6 @@ public class Idol : MonoBehaviour
 
             yield return new WaitForSeconds(timeBetweenIncrements);
         }
-            
-        
     }
 
     void changePose()

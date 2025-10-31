@@ -11,6 +11,8 @@ public class EventCore : MonoBehaviour
     //event for sending out the judgement, for the visual stuff
     public UnityEvent<int> processJudgement;
 
+    public UnityEvent<bool> processMovement;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

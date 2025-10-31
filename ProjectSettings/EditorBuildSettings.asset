@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/loseScreen.unity
     guid: 19141e0ff59afa54993f11649494f533
+  - enabled: 1
+    path: Assets/Scenes/passScreen.unity
+    guid: c2e2f11748cbcf74e82c16291c02b038
   - enabled: 0
     path: Assets/Scenes/old gameplay.unity
     guid: aa94a8d89ceae6849b895cedbcb5cbea

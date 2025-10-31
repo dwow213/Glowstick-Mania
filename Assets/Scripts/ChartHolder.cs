@@ -244,18 +244,18 @@ public class ChartHolder : MonoBehaviour
 
             new List<float> {14, 1, GetMoveId("down"), 1},
             new List<float> {14, 2, GetMoveId("down"), 2},
-            new List<float> {14, 3, GetMoveId("down"), 3}, new List<float> {14, 3, GetMoveId("right"), 1},
-            new List<float> {14, 4, GetMoveId("down"), 4}, new List<float> {14, 4, GetMoveId("right"), 2},
+            new List<float> {14, 3, GetMoveId("down"), 3}, 
+            new List<float> {14, 4, GetMoveId("down"), 4},
 
-            new List<float> {15, 1, GetMoveId("right"), 3}, new List<float> {15, 1, GetMoveId("up"), 1},
-            new List<float> {15, 2, GetMoveId("right"), 4}, new List<float> {15, 2, GetMoveId("up"), 2},
-            new List<float> {15, 3, GetMoveId("up"), 3}, new List<float> {15, 3, GetMoveId("left"), 1},
-            new List<float> {15, 4, GetMoveId("up"), 4}, new List<float> {15, 4, GetMoveId("left"), 2},
+            new List<float> {15, 1, GetMoveId("right"), 1},
+            new List<float> {15, 2, GetMoveId("right"), 2}, 
+            new List<float> {15, 3, GetMoveId("right"), 3},
+            new List<float> {15, 4, GetMoveId("right"), 4},
 
-            new List<float> {16, 1, GetMoveId("left"), 3}, new List<float> {16, 1, GetMoveId("right"), 1},
-            new List<float> {16, 2, GetMoveId("left"), 4}, new List<float> {16, 2, GetMoveId("right"), 2},
-            new List<float> {16, 3, GetMoveId("right"), 3},
-            new List<float> {16, 4, GetMoveId("right"), 4},
+            new List<float> {16, 1, GetMoveId("left"), 1},
+            new List<float> {16, 2, GetMoveId("left"), 2},
+            new List<float> {16, 3, GetMoveId("left"), 3},
+            new List<float> {16, 4, GetMoveId("left"), 4},
 
             new List<float> {17, 1, GetMoveId("down"), 1},
             new List<float> {17, 2, GetMoveId("down"), 2},

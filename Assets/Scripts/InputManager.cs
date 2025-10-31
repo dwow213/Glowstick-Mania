@@ -18,7 +18,6 @@ public class InputManager : MonoBehaviour
 
     EventCore eventCore;
 
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -88,7 +87,7 @@ public class InputManager : MonoBehaviour
             }
             doingMovement = true;
         }
-        else if (collision1 == null && collision2 == null)
+        else if (collision1 == null || collision2 == null)
         {
             doingMovement = false;
             //print("setting doingMovement to false");

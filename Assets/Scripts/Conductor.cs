@@ -30,7 +30,8 @@ public class Conductor : MonoBehaviour
     [SerializeField] float dspSongTime; //how many seconds passed since the song started
     [SerializeField] float noteInMilliseconds; //convert the current note's position in time to milliseconds
     [SerializeField] float ms; //how many milliseconds away from finishing
-    [SerializeField] float playerRow; //the row the player is in
+    [SerializeField] public float playerRow; //the row the player is in
+    bool rowChanged;
     bool alreadyMoved;
 
     bool onPlayerNote;
@@ -61,6 +62,8 @@ public class Conductor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print("player row: " + playerRow);
+        
         if (!startSong)
         {
             startTimer += Time.deltaTime;
@@ -108,6 +111,7 @@ public class Conductor : MonoBehaviour
             //print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
 
             alreadyMoved = false;
+            rowChanged = false;
         }
 
         //note for player
@@ -121,13 +125,18 @@ public class Conductor : MonoBehaviour
             if (!alreadyMoved)
             {
                 noteDisplays2d[(int)playerRow - 1].image.color = Color.red;
-                player.PointChange(-1f);
+                player.PointChange(-2f);
             }
 
             onPlayerNote = false;
             alreadyMoved = false;
         }
 
+        //every two measures, change the row
+        if (currentMeasure % 2 != 0 && currentBeat == 1 && !(currentMeasure < 4) && !rowChanged)
+        {
+            changeRow();
+        }
 
         //if there is still more notes in the chart
         if (chart.Count > 0)
@@ -147,9 +156,9 @@ public class Conductor : MonoBehaviour
                 if (chart[0][3] == playerRow - 1)
                 {
                     print("on player note");
-                    onPlayerNote = true;
                     noteInMilliseconds = ((currentMeasure - 1) * 4 + currentBeat) * secPerBeat;
                     targetMovement = chart[1][2]; //save the player's note
+                    onPlayerNote = true;
                     print("new ms: " + ((noteInMilliseconds - songPosition) * 1000));
                 }
 
@@ -159,7 +168,11 @@ public class Conductor : MonoBehaviour
         //if 2 seconds have passed since the music ended
         else if (songPosition > music.clip.length + 2)
         {
-            SceneManager.LoadScene(2);
+            //if player does really well, they get win screen
+            if (playerRow == 2 && player.points > 0)
+                SceneManager.LoadScene(2);
+            else //otherwise, they get pass screen
+                SceneManager.LoadScene(4);
         }
 
     }
@@ -195,14 +208,14 @@ public class Conductor : MonoBehaviour
             print("wrong movement dummy\nms:" + (ms));
             print("should be " + chartHolder.GetMoveName(chart[0][2]) + ", but you pressed " + input);
             noteDisplays2d[(int)playerRow - 1].image.color = Color.red; //might be temp
-            player.PointChange(-1f * Time.deltaTime);
+            player.PointChange(-2f * Time.deltaTime);
             alreadyMoved = false;
             eventCore.wrongMovement.Invoke();
             return;
         }
 
         //okay judgement
-        if (ms > 184 || ms < -184)
+        if (ms > 92 || ms < -92)
         {
             print("judgement: okay \nms:" + (ms));
             noteDisplays2d[(int)playerRow - 1].image.color = Color.orange;
@@ -212,7 +225,7 @@ public class Conductor : MonoBehaviour
         }
 
         //good judgement
-        if (ms > 66 || ms < -66)
+        if (ms > 33 || ms < -33)
         {
             print("judgement: good \nms:" + (ms));
             noteDisplays2d[(int)playerRow - 1].image.color = Color.green;
@@ -222,13 +235,39 @@ public class Conductor : MonoBehaviour
         }
 
         //perfect judgement
-        if (ms > 32 || ms < -32)
+        print("judgement: perfect \nms:" + (ms));
+        noteDisplays2d[(int)playerRow - 1].image.color = Color.lightBlue;
+        player.PointChange(1f);
+        eventCore.processJudgement.Invoke(3);
+        return;
+    }
+
+    //changing player's row based on performance
+    void changeRow()
+    {
+        print("changeRow");
+
+        rowChanged = true;
+
+        //player is doing well; make them go closer
+        if (player.points > 0)
         {
-            print("judgement: perfect \nms:" + (ms));
-            noteDisplays2d[(int)playerRow - 1].image.color = Color.lightBlue;
-            player.PointChange(1f);
-            eventCore.processJudgement.Invoke(3);
-            return;
+            if (playerRow > 2)
+            {
+                playerRow--;
+                eventCore.processMovement.Invoke(true);
+            }
+
+
+        }
+        else //player is doing worse; make them go farther
+        {
+            if (playerRow < 4)
+            {
+                playerRow++;
+                eventCore.processMovement.Invoke(false);
+            }
+
         }
     }
 
